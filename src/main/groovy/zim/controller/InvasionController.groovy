@@ -1,5 +1,6 @@
 package zim.controller
 
+import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 
 /**
@@ -12,6 +13,6 @@ class InvasionController {
      * @return quote
      */
     ResponseEntity<String> quote(String name) {
-        null
+        new ResponseEntity<String>("", HttpStatus.OK)
     }
 }

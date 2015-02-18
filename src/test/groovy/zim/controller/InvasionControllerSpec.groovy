@@ -28,4 +28,19 @@ class InvasionControllerSpec extends Specification {
         response.body.name == name
         response.body.message == message
     }
+
+    def "should successfully quote invader gir"() {
+        given:
+        def name = 'gir'
+        def message = 'doomdy doomdy doomdy doom ....'
+        def quote = new Quote(name: name, message: message)
+
+        when:
+        ResponseEntity<Quote> response = controller.quote(name)
+
+        then:
+        response.statusCode == HttpStatus.OK
+        response.body.name == name
+        response.body.message == message
+    }
 }

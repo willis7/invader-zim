@@ -13,6 +13,6 @@ class InvasionController {
      * @return quote
      */
     ResponseEntity<String> quote(String name) {
-        new ResponseEntity<String>("", HttpStatus.OK)
+        new ResponseEntity<String>('DOOOOOOM', HttpStatus.OK)
     }
 }

@@ -4,14 +4,17 @@ import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import spock.lang.Specification
 import zim.domain.Quote
+import zim.repository.QuoteRepository
 
 /**
  * Created by willis7 on 18/02/15.
  */
 class InvasionControllerSpec extends Specification {
     InvasionController controller
+    QuoteRepository repository = Mock()
+
     void setup() {
-        controller = new InvasionController()
+        controller = new InvasionController(repository: repository)
     }
 
     def "should successfully quote invader zim"() {

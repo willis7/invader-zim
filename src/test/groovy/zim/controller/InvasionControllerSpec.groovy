@@ -27,6 +27,9 @@ class InvasionControllerSpec extends Specification {
         ResponseEntity<Quote> response = controller.quote(name)
 
         then:
+        1 * repository.findByName(name) >> quote
+
+        and:
         response.statusCode == HttpStatus.OK
         response.body.name == name
         response.body.message == message
@@ -42,6 +45,9 @@ class InvasionControllerSpec extends Specification {
         ResponseEntity<Quote> response = controller.quote(name)
 
         then:
+        1 * repository.findByName(name) >> quote
+
+        and:
         response.statusCode == HttpStatus.OK
         response.body.name == name
         response.body.message == message

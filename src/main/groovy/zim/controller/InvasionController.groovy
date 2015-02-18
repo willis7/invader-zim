@@ -18,6 +18,6 @@ class InvasionController {
      * @return quote
      */
     ResponseEntity<Quote> quote(String name) {
-        new ResponseEntity<Quote>(new Quote(name: name, message: 'DOOOOOOM'), HttpStatus.OK)
+        new ResponseEntity<Quote>(repository.findByName(name), HttpStatus.OK)
     }
 }

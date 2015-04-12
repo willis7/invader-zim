@@ -1,21 +1,26 @@
+import com.wiredforcode.gradle.spawn.KillProcessTask
+import com.wiredforcode.gradle.spawn.SpawnProcessTask
+
 buildscript {
     repositories {
-        maven { url "https://repo.spring.io/libs-release" }
         mavenLocal()
+        maven { url "https://repo.spring.io/libs-release" }
+        maven { url 'http://dl.bintray.com/vermeulen-mp/gradle-plugins' }
         mavenCentral()
     }
     dependencies {
         classpath "org.springframework.boot:spring-boot-gradle-plugin:1.2.1.RELEASE"
         classpath 'com.sourcemuse.gradle.plugin:gradle-mongo-plugin:0.5.0'
+        classpath 'com.wiredforcode:gradle-spawn-plugin:0.6.0'
     }
 }
 
-apply plugin: 'groovy'
 apply plugin: 'spring-boot'
 apply plugin: 'mongo'
+apply plugin: 'groovy'
+apply plugin: 'com.wiredforcode.spawn'
 
 sourceCompatibility = 1.5
-version = '1.0'
 
 repositories {
     mavenCentral()
@@ -27,3 +32,11 @@ dependencies {
     compile "org.springframework.boot:spring-boot-starter-data-mongodb:1.2.1.RELEASE"
     testCompile 'org.spockframework:spock-core:0.7-groovy-2.0'
 }
+
+
+task startServer(type: SpawnProcessTask, dependsOn: 'assemble') {
+    command "java -jar ${project.buildDir}/libs/invader-zim.jar"
+    ready 'Started Application'
+}
+
+task stopServer(type: KillProcessTask)

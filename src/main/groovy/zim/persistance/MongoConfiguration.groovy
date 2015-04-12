@@ -1,6 +1,7 @@
 package zim.persistance
 
 import com.mongodb.Mongo
+import com.mongodb.MongoClient
 import org.springframework.context.annotation.Configuration
 import org.springframework.data.mongodb.config.AbstractMongoConfiguration
 
@@ -17,6 +18,6 @@ class MongoConfiguration extends AbstractMongoConfiguration {
     @Override
     Mongo mongo() throws Exception {
         // Instantiate new mongo driver
-        new Mongo()
+        new MongoClient()
     }
 }

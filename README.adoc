@@ -36,7 +36,7 @@ java -jar build/libs/invader-zim
 
 ... or if you want the easy way of running this build simply build the microservice with `gradlew clean assemble` followed by:
 
-==== Start a mongo instance
+==== Start a mongodb container
 
 [source]
 ----
@@ -50,7 +50,7 @@ docker run --name zim-mongo -d mongo:latest
 docker build -t zim-svc .
 -----
 
-==== Start zim service image linked to mongodb
+==== Start zim service container linked to zim-mongo container
 
 [source]
 ----

@@ -40,7 +40,7 @@ If you want the easy way of running this build simply build the microservice wit
 
 [source]
 ----
-docker run --name zim-mongo -p 27017:27017 -d mongo
+docker run -d -p 27017:27017 --name zim-mongo mongo
 ----
 
 ==== Seed the DB
@@ -61,6 +61,6 @@ docker build -t zim-svc .
 
 [source]
 ----
-docker run --name zim-svc --link zim-mongo:mongo -p 8080:8080 -d zim-svc
+docker run -d -p 8080:8080 --link zim-mongo:mongo --name zim-svc zim-svc
 ----
 

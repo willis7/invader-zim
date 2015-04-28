@@ -9,9 +9,6 @@ MAINTAINER Sion Williams <sion5@hotmail.co.uk>
 VOLUME /tmp
 
 COPY build/libs/invader-zim.jar /opt/zim/invader-zim.jar
-COPY src/main/resources/mongo/quote.js /opt/zim/quote.js
-COPY start.sh /opt/zim/start.sh
-RUN chmod +x /opt/zim/start.sh
 
 EXPOSE 8080
-CMD /opt/zim/start.sh
+CMD java -jar /opt/zim/invader-zim.jar

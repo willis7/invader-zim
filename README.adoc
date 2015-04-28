@@ -34,13 +34,20 @@ java -jar build/libs/invader-zim
 
 === Docker
 
-... or if you want the easy way of running this build simply build the microservice with `gradlew clean assemble` followed by:
+If you want the easy way of running this build simply build the microservice with `gradlew clean assemble` followed by:
 
 ==== Start a mongodb container
 
 [source]
 ----
-docker run --name zim-mongo -d mongo:latest
+docker run --name zim-mongo -p 27017:27017 -d mongo
+----
+
+==== Seed the DB
+
+[source]
+----
+docker run -it  -v $PWD/db/quote.js:/src/quote.js:ro --link zim-mongo:mongo --rm mongo sh -c 'exec mongo "$MONGO_PORT_27017_TCP_ADDR:$MONGO_PORT_27017_TCP_PORT/invasion" /src/quote.js'
 ----
 
 ==== Build the Zim service image
@@ -54,5 +61,6 @@ docker build -t zim-svc .
 
 [source]
 ----
-docker run --name my-zim-svc --link zim-mongo:mongo -p 8080:8080 -d zim-svc
+docker run --name zim-svc --link zim-mongo:mongo -p 8080:8080 -d zim-svc
 ----
+

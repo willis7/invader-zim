@@ -1,6 +1,6 @@
 #   Usage:
 #   # Build the Docker image
-#   docker build -t zim-service .
+#   docker build -t zim-svc .
 
 FROM java:7
 MAINTAINER Sion Williams <sion5@hotmail.co.uk>

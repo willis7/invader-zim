@@ -40,14 +40,14 @@ If you want the easy way of running this build simply build the microservice wit
 
 [source]
 ----
-docker run -d -p 27017:27017 --name zim-mongo mongo
+docker run -d --name zim-mongo mongo
 ----
 
 ==== Seed the DB
 
 [source]
 ----
-docker run -it  -v $PWD/db/quote.js:/src/quote.js:ro --link zim-mongo:mongo --rm mongo sh -c 'exec mongo "$MONGO_PORT_27017_TCP_ADDR:$MONGO_PORT_27017_TCP_PORT/invasion" /src/quote.js'
+docker run -it  -v $PWD/docker/db/quote.js:/src/quote.js:ro --link zim-mongo:mongo --rm mongo sh -c 'exec mongo "$MONGO_PORT_27017_TCP_ADDR:$MONGO_PORT_27017_TCP_PORT/invasion" /src/quote.js'
 ----
 
 ==== Build the Zim service image
@@ -57,7 +57,7 @@ docker run -it  -v $PWD/db/quote.js:/src/quote.js:ro --link zim-mongo:mongo --rm
 docker build -t zim-svc .
 -----
 
-==== Start zim service container linked to zim-mongo container
+==== Start zim-svc container linked to zim-mongo container
 
 [source]
 ----

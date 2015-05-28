@@ -1,4 +1,4 @@
-=== Demo Spring Boot Groovy app
+== Demo Spring Boot Groovy app
 
 This application demonstrates how easy it is to build a Groovy Spring Boot application, using Cucumber to test. It uses embedded server and mongo during functional tests.
 
@@ -32,7 +32,7 @@ gradle run
 java -jar build/libs/invader-zim
 ----
 
-=== Docker
+== Docker
 
 If you want the easy way of running this build simply build the microservice with `gradlew clean assemble` followed by:
 
@@ -49,6 +49,14 @@ docker run -d --name zim-mongo mongo
 ----
 docker run -it  -v $PWD/docker/db/quote.js:/src/quote.js:ro --link zim-mongo:mongo --rm mongo sh -c 'exec mongo "$MONGO_PORT_27017_TCP_ADDR:$MONGO_PORT_27017_TCP_PORT/invasion" /src/quote.js'
 ----
+There's a lot going on here, so lets break it down. We need a mongod process so that we can run our test data into our invasion database. We could do some hacky things with shell scripts and the `zim-mongo` container, but that will then run every time, and we may want to be selective (such as prod). So, we run a new containers whose sole purpose is to seed the data. We could also use spring profiles here, but I wanted to keep the 2 seperate for the moment.
+
+* `-it` runs the container in interactive mode and allocates a pseudo tty flag which allows us to attach to the containers terminal.
+* `-v` bind mounts a volume (from host `$PWD/docker/db/quote.js` to container `/src/quote.js` as read-only using `:ro`)
+* `--link` adds link to another container (our invasion db)
+* `--rm` automatically removes the container when exited
+* `sh -c` then runs our script into the linked database using the ENV vars created by `--link`
+
 
 ==== Build the Zim service image
 
